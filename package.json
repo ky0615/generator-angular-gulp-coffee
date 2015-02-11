@@ -1,11 +1,12 @@
 {
   "name": "generator-angular-gulp-coffee",
-  "version": "0.0.1",
-  "description": "A generator for Yeoman",
+  "version": "0.0.2",
+  "description": "Angular Gulp Coffee Yeoman generator",
   "keywords": [
     "yeoman-generator",
     "coffeescript",
-    "grunt"
+    "gulp",
+    "angular"
   ],
   "homepage": "https://github.com/ky0615/generator-angular-gulp-coffee",
   "bugs": "https://github.com/ky0615/generator-angular-gulp-coffee/issues",
