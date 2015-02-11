@@ -20,30 +20,49 @@
       this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
     }
 
-    AngularGulpCoffeeGenerator.prototype.askFor = function() {
+    AngularGulpCoffeeGenerator.prototype.promptUser = function() {
       var cb, prompts,
         _this = this;
       cb = this.async();
       console.log(this.yeoman);
       prompts = [
         {
-          type: 'confirm',
-          name: 'someOption',
-          message: 'Would you like to enable this option? This is just a test',
-          "default": true
+          name: 'appName',
+          message: 'Enter your Application name?'
         }
       ];
       return this.prompt(prompts, function(props) {
-        _this.someOption = props.someOption;
+        _this.appName = props.appName || 'project';
+        return cb();
+      });
+    };
+
+    AngularGulpCoffeeGenerator.prototype.promptDescription = function() {
+      var cb, prompts,
+        _this = this;
+      cb = this.async();
+      prompts = [
+        {
+          name: 'description',
+          message: 'Enter your Application description?'
+        }
+      ];
+      return this.prompt(prompts, function(props) {
+        _this.description = props.description || 'new Application';
         return cb();
       });
     };
 
     AngularGulpCoffeeGenerator.prototype.app = function() {
+      var context;
       this.mkdir('app');
       this.mkdir('app/templates');
-      this.copy('_package.json', 'package.json');
-      return this.copy('_bower.json', 'bower.json');
+      context = {
+        appName: this.appName,
+        description: this.description
+      };
+      this.template('_package.json', 'package.json', context);
+      return this.template('_bower.json', 'bower.json', context);
     };
 
     AngularGulpCoffeeGenerator.prototype.projectfiles = function() {
