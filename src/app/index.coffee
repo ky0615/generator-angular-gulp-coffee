@@ -46,3 +46,10 @@ module.exports = class AngularGulpCoffeeGenerator extends yeoman.generators.Base
 
   projectfiles: ->
     @copy 'editorconfig', '.editorconfig'
+
+  # runNpm: ->
+  #   console.log '\nDone loading files!\nInstalling Node modules and Bower packages...\n'
+  #   @npmInstall '', ->
+  #     console.log '\n Done installing node modules!\n Run \'npm start\' to build and serve the project'
+  #   @bowerInstall '', ->
+  #     console.log '\n  Done installing bower Packages\n'
