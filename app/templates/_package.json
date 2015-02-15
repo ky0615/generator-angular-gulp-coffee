@@ -37,9 +37,7 @@
     "run-sequence": "^1.0.1"
   },
   "scripts": {
-    "start": "pm2 start app.coffee --name bridgecamp",
-    "reload": "pm2 restart bridgecamp",
-    "stop": "pm2 stop bridgecamp",
+    "start": "coffee app.coffee",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
