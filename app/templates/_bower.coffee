@@ -28,4 +28,4 @@ module.exports = (gulp, plugins, growl, path)->
       .pipe gulp.dest plugins.config.destPath + "css/lib"
       .pipe cssFilter.restore()
       .pipe fontFilter
-      .pipe gulp.dest plugins.config.destPath + "fonts"
+      .pipe gulp.dest plugins.config.destPath + "css/fonts"
