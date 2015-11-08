@@ -10,6 +10,6 @@ module.exports = (gulp, plugins)->
       'clean',
       ['bower', 'coffee', 'sass', 'copy', 'concat:template'],
       'concat:js',
-      ['uglify:js', 'images'],
+      ['uglify:js', 'concat:css', 'images'],
       cb
     )

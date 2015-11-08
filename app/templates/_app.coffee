@@ -1,10 +1,11 @@
-express = require 'express'
-gulp = require "./gulpfile"
-sequence = require "run-sequence"
+express = require "express"
+path = require "path"
+config = require 'config'
+bodyParser = require "body-parser"
 
-path = require 'path'
-
+env = process.env.NODE_ENV || 'development'
 app = express()
+app.use bodyParser()
 
 app.use (req, res, next)->
   res.set "X-Powered-By", "NodeJS"
@@ -12,21 +13,27 @@ app.use (req, res, next)->
 
 static_base_path = path.join __dirname, 'www'
 app.use express.static static_base_path
+
+app.get /^\/(js|css|min)\/(.*)/, (req, res)->
+  res.send "404 Not found", 404
+
 app.get "*", (req, res)->
   res.sendfile path.join static_base_path, "index.html"
   return
 
-app.set 'port', process.env.PORT || 1451
+console.log "NODE_ENV is " + env
 
-environment = app.get "env"
-console.log "NODE_ENV is " + environment
-if environment is "development"
+if env is "production"
+  app.set 'port', process.env.PORT || 1452
+else
+  app.set 'port', process.env.PORT || 1451
+  gulp = require "./gulpfile"
+  sequence = require "run-sequence"
+
   sequence "build", ->
     console.log "gulp build was successful"
     sequence "watch:assets", ->
-else
-  sequence "build", ->
-    console.log "gulp build was successful"
+
 
 server = app.listen app.get("port"), ->
   console.log "Server listening on pot " + server.address().port
