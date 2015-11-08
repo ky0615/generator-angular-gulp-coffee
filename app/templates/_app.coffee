@@ -26,6 +26,7 @@ if environment is "development"
     sequence "watch:assets", ->
 else
   sequence "build", ->
+    console.log "gulp build was successful"
 
 server = app.listen app.get("port"), ->
   console.log "Server listening on pot " + server.address().port
