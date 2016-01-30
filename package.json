@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-gulp-coffee",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Angular Gulp Coffee Yeoman generator",
   "keywords": [
     "yeoman-generator",
