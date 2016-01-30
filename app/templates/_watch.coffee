@@ -7,28 +7,33 @@ Gulp task watch
 module.exports = (gulp, plugins, growl, path)->
   gulp.task "watch:assets", ->
     plugins.livereload = plugins.livereload.listen()
-    plugins.watch ["assets/**/*.sass", "assets/**/*.scss"], (file, cb)->
-      plugins.sequence "sass", "reload", cb
-    plugins.watch ["assets/**/*.coffee"], (file, cb)->
-      plugins.sequence "coffee","concat:js", "uglify:js", "reload", cb
-    plugins.watch ["assets/images/**/*"], (file, cb)->
-      plugins.sequence "images", "reload", cb
+    plugins.watch ["assets/**/*.sass", "assets/**/*.scss"], (file)->
+      plugins.util.log file.path.yellow + " was changed"
+      plugins.sequence "sass", "reload"
+    plugins.watch ["assets/**/*.coffee"], (file)->
+      plugins.util.log file.path.yellow + " was changed"
+      plugins.sequence "coffee","concat:js", "uglify:js", "reload"
+    plugins.watch ["assets/images/**/*"], (file)->
+      plugins.util.log file.path.yellow + " was changed"
+      plugins.sequence "images", "reload"
     plugins.watch [
         "assets/**/**.!(coffee|less|sass|scss)"
         "!assets/images{,/**}"
-        ], (file, cb)->
+        ], (file)->
+      plugins.util.log file.path.yellow + " was changed"
       plugins.sequence(
         ["copy", 'concat:template'],
         'concat:js',
         'uglify:js',
-        "reload",
-        cb
+        "reload"
         )
 
   gulp.task "reload", ->
+    plugins.util.log "page was reloaded"
     gulp
       .src "assets/**/*"
-      .pipe plugins.livereload()
+      .pipe plugins.livereload
+        quiet: true
 
   gulp.task "watch", ->
     plugins.sequence(
